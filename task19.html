@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title></title>
+	<style type="text/css">
+	*{
+		padding: 0;margin: 0;
+		list-style: none;
+	}
+	#ul1{
+		margin-top: 20px;
+		height: 500px;
+		display: flex;
+		align-items: flex-end;
+		flex-wrap: wrap;
+		flex-direction: row;
+	}
+	#ul1 li{
+		width: 20px;
+		margin-left: 10px;
+		background-color: red;
+		margin-top: 10px;
+	}
+	</style>
+</head>
+<body>
+<input id="num" type="text"></input>
+<input id="left-r" type="button" value="左侧入"></input>
+<input id="right-r" type="button" value="右侧入"></input>
+<input id="left-out" type="button" value="左侧出"></input>
+<input id="right-out" type="button" value="右侧出"></input>
+<ul id="ul1">
+	<!-- <li>3</li>
+	<li>1</li>
+	<li>8</li>
+	<li>5</li> -->
+
+</ul>
+<form>
+	<input type="button" id="btn" value="sort"></input>
+</form>
+<script type="text/javascript">
+	window.onload=function(){
+		var oTxt=document.getElementById('num');
+		var Btnlr=document.getElementById('left-r');
+		var Btnrr=document.getElementById('right-r');
+		var Btnlo=document.getElementById('left-out');
+		var Btnro=document.getElementById('right-out');
+		var oUl=document.getElementById("ul1");
+		var aLi=oUl.getElementsByTagName('li');
+		var oBtn=document.getElementById('btn')
+		
+		oTxt.onkeyup = function(){
+		this.value=this.value.replace(/\D/g,'');
+			if(oTxt.value>100){
+			  oTxt.value = 100;
+			}
+		}
+		Btnlr.onclick=function(){
+			if(aLi.length>10)
+			{
+				alert("woring!");
+				return 0;
+			}
+			var li1=document.createElement('li');
+			li1.innerHTML=oTxt.value;
+			oUl.insertBefore(li1,aLi[0]);
+			li1.style.height=oTxt.value*5+'px';
+		}
+		Btnrr.onclick=function(){
+			if(aLi.length>10)
+			{
+				alert("woring!");
+				return 0;
+			}
+			var li2=document.createElement('li');
+			li2.innerHTML=oTxt.value;
+			oUl.appendChild(li2);
+			li2.style.height=oTxt.value*5+'px';
+		}
+		Btnlo.onclick=function(){
+		    oUl.removeChild(aLi[0]);
+		}
+		Btnro.onclick=function(){
+			oUl.removeChild(aLi[aLi.length-1]);
+		}
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].onclick=function(){
+				alert(aLi[i]);
+				oUl.removeChild(this);
+			}
+		}
+		for(var i=0;i<aLi.length;i++){
+			aLi[i].style.height=aLi[i].innerHTML*5+'px';
+		}
+
+
+		oBtn.onclick=function(){
+			  var i=0;
+			  var j=i+1;
+			  var timer=null;
+			  timer=setInterval(function(){
+			      if(i<aLi.length)
+			      {
+			        console.log(i);
+			        if(j<aLi.length){
+			          if(aLi[i].style.height>aLi[j].style.height){
+			            var t;
+			            var str = aLi[i].innerHTML;
+			            t = aLi[i].style.height;
+			            console.log(t);
+			            aLi[i].style.height = aLi[j].style.height;
+			            aLi[i].innerHTML = aLi[j].innerHTML;
+			            aLi[j].style.height = t;  
+			            aLi[j].innerHTML= str;
+			          }
+			          j++;
+			        }
+			        else{
+			          i++;
+			          j=i+1;
+			        }
+			      }
+			      else
+			        clearInterval(timer);
+			    },500);
+			  }
+	}
+</script>
+</body>
+</html>
