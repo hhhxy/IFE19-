@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<head>
+	<title>task29</title>
+	<style type="text/css">
+	*{font-family: "微软雅黑";}
+	form{
+		margin-top: 100px;
+		margin-left: 300px;
+	}
+	span{
+		font-size: 24px;
+		font-weight: bold;
+	}
+	#txt{
+		width: 500px;
+		height: 50px;
+		border-radius: 10px;
+		border: 2px solid #ccc;
+		margin-left: 30px;
+		outline:none;
+	}
+	#btn{
+		width: 70px;
+		height: 50px;
+		background-color: blue;
+		color: #fff;
+		border-radius:5px;
+	}
+	#exp{
+		margin-left: 380px;
+		color: #ccc;
+		font-weight: bold;
+	}
+	</style>
+</head>
+<body>
+<form>
+	<span>名称</span>
+	<input id="txt" type="text"></input>
+	<input id="btn" type="button" value="验证"></input>
+</form>
+<p id="exp">必填，长度为4~16个字节</p>
+<script type="text/javascript">
+	window.onload=function(){
+		var oTxt=document.getElementById('txt');
+		var oBtn=document.getElementById('btn');
+		var oExp=document.getElementById('exp');
+
+		oBtn.onclick=function(){
+			var inputVlaue=oTxt.value;
+			if(size(inputVlaue)==0)
+			{
+				oTxt.style.border='2px solid red';
+				oExp.innerHTML="姓名不能为空";
+				oExp.style.color='red';
+			}
+			else if(size(inputVlaue)>=4 && size(inputVlaue)<=16)
+			{
+				oTxt.style.border='2px solid green';
+				oExp.innerHTML="名称格式正确";
+				oExp.style.color='green';
+			}
+			else
+			{
+				oTxt.style.border='2px solid red';
+				oExp.innerHTML="请输入长度为4~16字节";
+				oExp.style.color='red';
+			}
+		}
+		function size(str){
+			var relLength=0;
+			for (var i = 0; i < str.length; i++) {
+				var codeSize=str.charCodeAt(i);
+				if(codeSize >=0 && codeSize <= 128)
+					relLength+=1;
+				else
+					relLength+=2;
+			}
+			return relLength;
+		}
+	}
+</script>
+</body>
+</html>
